@@ -13,16 +13,23 @@ typedef struct IPRange {
     unsigned short *ports;
 } IPRange;
 
-typedef struct IPRangeConf {
+typedef struct IPRanges {
     unsigned int range_num;
-    IPRange *ip_range;
+    IPRange *ip_ranges;
+} IPRanges;
+
+typedef struct IPRangeConf {
+    IPRanges *first_ip_ranges;
+    IPRanges *second_ip_ranges;
+    IPRanges *cur_ip_ranges;
+    int latest_update_time;
 } IPRangeConf;
 
-bool ip_in_range(unsigned int ip, IPRangeConf *ip_range_conf);
+bool ip_in_range(unsigned int ip, IPRanges *ip_ranges);
 
 bool ip_port_in_range(unsigned int ip, unsigned short port,
-        IPRangeConf *ip_range_conf);
+        IPRanges *ip_ranges);
 
-void print_ip_range(IPRangeConf* ip_range_conf);
+void print_ip_range(IPRanges* ip_ranges);
 
 #endif
